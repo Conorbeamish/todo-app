@@ -13,7 +13,7 @@ class App extends Component {
       {
         id: 2,
         title: "Job 2",
-        completed: true
+        completed: false
       },
       {
         id: 4,
@@ -23,8 +23,19 @@ class App extends Component {
     ]
   }
 
+  //Toggle complete
   markComplete = (id) => {
-    console.log(id)
+    this.setState({todos: this.state.todos.map(todo => {
+      if(todo.id === id){
+        todo.completed = !todo.completed
+      }
+      return todo;
+    }) });
+  }
+
+  //Delete todo
+  delTodo = (id) => {
+    this.setState({ todos: [...this.state.todos.filter(todo => todo.id !== id)]});
   }
 
   render(){
@@ -32,6 +43,7 @@ class App extends Component {
       <div className="App">
         <Todos  todos={this.state.todos}
                 markComplete={this.markComplete}
+                delTodo = {this.delTodo}
         />
       </div>
     );
